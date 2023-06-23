@@ -26,7 +26,7 @@
       var texture = textureLoader.load('/assets/img/texture/wood.jpeg');
       
       // Crear el material con un color sólido
-      var material = new THREE.MeshPhongMaterial({ map: texture });
+      var material = new THREE.MeshStandardMaterial({ map: texture });
 
       // Crear el cubo utilizando la geometría y el material
       var cube = new THREE.Mesh(geometry, material);
