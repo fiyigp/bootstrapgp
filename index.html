@@ -46,6 +46,13 @@
       // Posicionar la cámara
       camera.position.z = 5;
 
+      var isDragging = false; // Indica si se está arrastrando
+      var previousMousePosition = { x: 0, y: 0 }; // Almacena la posición anterior del cursor
+
+      renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+      renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+      renderer.domElement.addEventListener('mouseup', onMouseUp, false);
+
       // Función para renderizar la escena
       function animate() {
         requestAnimationFrame(animate);
@@ -59,6 +66,42 @@
         renderer.render(scene, camera);
         
       }
+
+      function onMouseDown(event) {
+        event.preventDefault();
+        isDragging = true;
+        previousMousePosition = { x: event.clientX, y: event.clientY };
+      }
+      
+      function onMouseMove(event) {
+        event.preventDefault();
+        if (isDragging) {
+          var deltaMove = {
+            x: event.clientX - previousMousePosition.x,
+            y: event.clientY - previousMousePosition.y
+          };
+      
+          var deltaRotationQuaternion = new THREE.Quaternion()
+            .setFromEuler(new THREE.Euler(
+              toRadians(deltaMove.y * 0.5),
+              toRadians(deltaMove.x * 0.5),
+              0,
+              'XYZ'
+            ));
+      
+          camera.quaternion.multiplyQuaternions(deltaRotationQuaternion, camera.quaternion);
+          previousMousePosition = { x: event.clientX, y: event.clientY };
+        }
+      }
+      
+      function onMouseUp(event) {
+        event.preventDefault();
+        isDragging = false;
+      }
+
+      function toRadians(angle) {
+          return angle * (Math.PI / 180);
+        }
 
       // Iniciar la animación
       animate();
