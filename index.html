@@ -49,21 +49,19 @@
       // Función para renderizar la escena
       function animate() {
         requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        //cube.rotation.x += 0.01;
+        //cube.rotation.y += 0.01;
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(6, 6, 6);
+        scene.add(directionalLight);
 
+        renderer.setClearColor(0x000000, 0); // Fondo transparente
+        renderer.render(scene, camera);
         
       }
 
-      var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(2, 3, 4);
-      scene.add(directionalLight);
-
-      renderer.setClearColor(0x000000, 0); // Fondo transparente
-      renderer.render(scene, camera);
-
       // Iniciar la animación
-      //animate();
+      animate();
     </script>
   </body>
 </html>
