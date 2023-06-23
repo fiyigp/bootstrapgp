@@ -23,7 +23,7 @@
 
       // Crear textura desde una imagen
       var textureLoader = new THREE.TextureLoader();
-      var texture = textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
+      textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
         // La textura se ha cargado correctamente
         material.map = texture;
         material.needsUpdate = true;
@@ -31,6 +31,7 @@
         // Error al cargar la textura
         console.error('Error al cargar la textura:', error);
       });
+      return;
       
       // Crear el material con un color sólido
       var material = new THREE.MeshStandardMaterial({ map: texture });
