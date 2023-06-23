@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WebGL Cubo con Three.js</title>
+    <style>
+      body { margin: 0; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script>
+      // Crear la escena, cámara y renderizador
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Crear la geometría del cubo
+      var geometry = new THREE.BoxGeometry(1, 1, 1);
+
+      // Crear el material con un color sólido
+      var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+      // Crear el cubo utilizando la geometría y el material
+      var cube = new THREE.Mesh(geometry, material);
+
+      // Agregar el cubo a la escena
+      scene.add(cube);
+
+      // Posicionar la cámara
+      camera.position.z = 5;
+
+      // Función para renderizar la escena
+      function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+
+      // Iniciar la animación
+      animate();
+    </script>
+  </body>
+</html>
