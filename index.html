@@ -22,20 +22,22 @@
       var geometry = new THREE.BoxGeometry(1, 1, 1);
 
       // Crear textura desde una imagen
-      var textureLoader = new THREE.TextureLoader();
-      var texture = textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
+      //var textureLoader = new THREE.TextureLoader();
+      //var texture = textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
         // La textura se ha cargado correctamente
-        material.map = texture;
-        material.needsUpdate = true;
-      }, undefined, function(error) {
+        //material.map = texture;
+        //material.needsUpdate = true;
+      //}, undefined, function(error) {
         // Error al cargar la textura
-        console.error('Error al cargar la textura:', error);
-      });
+        //console.error('Error al cargar la textura:', error);
+      //});
       
       // Crear el material con un color sólido
-      var material = new THREE.MeshStandardMaterial({ map: texture });
-      material.flatShading = false; // Habilitar sombreado suave
-      material.side = THREE.DoubleSide; // Mostrar el material en ambos lados del cubo
+      //var material = new THREE.MeshStandardMaterial({ map: texture });
+      //material.flatShading = false; // Habilitar sombreado suave
+      //material.side = THREE.DoubleSide; // Mostrar el material en ambos lados del cubo
+
+      var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
       // Crear el cubo utilizando la geometría y el material
       var cube = new THREE.Mesh(geometry, material);
@@ -56,8 +58,8 @@
       // Función para renderizar la escena
       function animate() {
         requestAnimationFrame(animate);
-        //cube.rotation.x += 0.01;
-        //cube.rotation.y += 0.01;
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
         var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(6, 6, 6);
         scene.add(directionalLight);
