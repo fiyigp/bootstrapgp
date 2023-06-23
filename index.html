@@ -23,7 +23,7 @@
 
       // Crear textura desde una imagen
       var textureLoader = new THREE.TextureLoader();
-      textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
+      var texture = textureLoader.load('/assets/img/texture/wood.jpeg', function(texture) {
         // La textura se ha cargado correctamente
         material.map = texture;
         material.needsUpdate = true;
@@ -31,10 +31,11 @@
         // Error al cargar la textura
         console.error('Error al cargar la textura:', error);
       });
-      return;
       
       // Crear el material con un color sólido
       var material = new THREE.MeshStandardMaterial({ map: texture });
+      material.flatShading = false; // Habilitar sombreado suave
+      material.side = THREE.DoubleSide; // Mostrar el material en ambos lados del cubo
 
       // Crear el cubo utilizando la geometría y el material
       var cube = new THREE.Mesh(geometry, material);
@@ -50,6 +51,12 @@
         requestAnimationFrame(animate);
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
+
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+
+        renderer.setClearColor(0x000000, 0); // Fondo transparente
         renderer.render(scene, camera);
       }
 
